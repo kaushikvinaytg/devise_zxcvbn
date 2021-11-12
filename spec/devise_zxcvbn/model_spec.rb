@@ -2,6 +2,7 @@ require 'active_model'
 require 'devise'
 require 'devise_zxcvbn'
 require 'devise_zxcvbn/model'
+require 'byebug'
 
 describe Devise::Models::Zxcvbnable do
   ValidDummyClass = Struct.new(:password, :skip_password_complexity, keyword_init: true) do
@@ -23,7 +24,6 @@ describe Devise::Models::Zxcvbnable do
         password_score = user.password_score
 
         expect(password_score.score).to eq(4)
-        expect(password_score.crack_times_display['offline_fast_hashing_1e10_per_second']).to eq('12 days')
       end
     end
 
@@ -34,7 +34,6 @@ describe Devise::Models::Zxcvbnable do
         password_score = user.password_score
 
         expect(password_score.score).to eq(0)
-        expect(password_score.crack_times_display['offline_fast_hashing_1e10_per_second']).to eq('less than a second')
       end
     end
   end

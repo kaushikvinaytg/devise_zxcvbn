@@ -46,14 +46,14 @@ module Devise
       end
 
       def zxcvbn_feedback
-        feedback = password_score.feedback.values.flatten.reject(&:empty?)
+        feedback = password_score.feedback.suggestions.flatten.reject(&:empty?)
         return "Add another word or two. Uncommon words are better." if feedback.empty?
 
         feedback.join(". ").gsub(/\.\s*\./, ".")
       end
 
       def time_to_crack
-        password_score.crack_times_display["offline_fast_hashing_1e10_per_second"]
+        password_score.crack_time_display
       end
 
       class_methods do
